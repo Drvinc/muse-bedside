@@ -8,11 +8,12 @@ export class ChartService {
   getChartSmoothieDefaults(overrides: any = {}): any {
     return Object.assign({
       responsive: true,
-      millisPerPixel: 5,
+      millisPerPixel: 6,
       grid: {
-        lineWidth: 4,
+        millisPerLine: 200,
+        lineWidth: 1,
         fillStyle: 'transparent',
-        strokeStyle: 'transparent',
+        strokeStyle: 'rgb(230, 230, 230)',
         sharpLines: true,
         verticalSections: 0,
         borderVisible: false

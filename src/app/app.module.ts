@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import {
   MatSnackBarModule, MatButtonModule, MatIconModule, MatToolbarModule, MatCardModule,
   MatProgressBarModule, MatProgressSpinnerModule, MatCheckboxModule, MatSliderModule,
@@ -23,7 +22,6 @@ import { HeadsetInfoComponent } from './headset-info/headset-info.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatButtonModule,

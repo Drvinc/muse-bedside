@@ -14,11 +14,11 @@
     </article>
 
     <div class="graph-settings">
-      <mat-checkbox [(ngModel)]="filter">Filter</mat-checkbox>
+      <mat-checkbox [(ngModel)]="filter">Notch filter (60 Hz)</mat-checkbox>
     </div>
 
     <div class="graph-settings">
-      Amplitude Scale : <mat-slider [(ngModel)]="amplitudeScale" min="5" max="200" step="10"></mat-slider> {{amplitudeScale}} uV
-      Time Scale : <mat-slider [(ngModel)]="timeScale" min="2" max="16" step="1"></mat-slider> {{timeScale}}
+      <div>Amplitude Scale : <mat-slider [(ngModel)]="amplitudeScale" min="5" max="200" step="10"></mat-slider> {{amplitudeScale}} uV</div>
+      <div>Time Scale : <mat-slider [(ngModel)]="timeScale" min="2" max="8" step="1"></mat-slider> {{timeScale}}</div>
     </div>
 </section>

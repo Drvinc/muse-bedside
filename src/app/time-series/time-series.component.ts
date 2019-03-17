@@ -8,7 +8,7 @@ import { bandpass } from './../shared/bandpass.filter';
 
 import { ChartService } from '../shared/chart.service';
 
-const samplingFrequency = 240;
+const samplingFrequency = 256;
 
 @Component({
   selector: 'app-time-series',
@@ -32,8 +32,8 @@ export class TimeSeriesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   readonly options = this.chartService.getChartSmoothieDefaults({
     millisPerPixel: 5,
-    maxValue: 80,
-    minValue: -80
+    maxValue: 100,
+    minValue: -100
   });
   readonly colors = this.chartService.getColors();
 
@@ -76,7 +76,7 @@ export class TimeSeriesComponent implements OnInit, OnDestroy, AfterViewInit {
         }))),
       groupBy(sample => sample.electrode),
       mergeMap(group => {
-        const bandpassFilter = bandpass(samplingFrequency, 1, 30);
+        const bandpassFilter = bandpass(samplingFrequency, 0.5, 40);
         const conditionalFilter = value => this.filter ? bandpassFilter(value) : value;
         return group.pipe(
           filter(sample => !isNaN(sample.value)),
@@ -112,7 +112,6 @@ export class TimeSeriesComponent implements OnInit, OnDestroy, AfterViewInit {
   draw(timestamp: number, amplitude: number, index: number) {
     this.uMeans[index] = 0.995 * this.uMeans[index] + 0.005 * amplitude;
     this.uVrms[index] = Math.sqrt(0.995 * this.uVrms[index] ** 2 + 0.005 * (amplitude - this.uMeans[index]) ** 2);
-
     this.lines[index].append(timestamp, amplitude);
     this.amplitudes[index] = amplitude.toFixed(2);
   }

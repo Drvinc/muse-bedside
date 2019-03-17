@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <img src="assets/brain.svg" alt="Brain icon" class="app-icon" />
-  Muse EEG Explorer
+  Portable EEG with MUSE headband
   <span class="header-fill"></span>
   <span [hidden]="!(batteryLevel|async)" class="battery-level-indicator">
     <mat-icon>battery_std</mat-icon>{{batteryLevel|async|number:"1.0-0"}}%
@@ -19,7 +19,6 @@
     </div>
   </mat-card>
   <mat-card *ngIf="data">
-    <mat-card-title>Live EEG Plot</mat-card-title>
     <mat-card-content>
       <app-time-series [data]="data"></app-time-series>
     </mat-card-content>
