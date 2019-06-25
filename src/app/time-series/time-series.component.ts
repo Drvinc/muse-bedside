@@ -5,7 +5,6 @@ import { SmoothieChart, TimeSeries } from 'smoothie';
 import { channelNames, EEGSample } from 'muse-js';
 import { map, groupBy, filter, mergeMap, takeUntil } from 'rxjs/operators';
 import { bandpass } from './../shared/bandpass.filter';
-
 import { ChartService } from '../shared/chart.service';
 
 const samplingFrequency = 256;
@@ -31,11 +30,13 @@ export class TimeSeriesComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly uMeans = [0, 0, 0, 0, 0];
 
   readonly options = this.chartService.getChartSmoothieDefaults({
-    millisPerPixel: 5,
-    maxValue: 100,
-    minValue: -100
+    millisPerPixel: 4,
+    maxValue: 70,
+    minValue: -70
   });
   readonly colors = this.chartService.getColors();
+  private HighPass = 40;
+  private LowPass = 3;
 
   private lines: TimeSeries[];
 
@@ -63,6 +64,22 @@ export class TimeSeriesComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  get lowpassFilter() {
+    return this.LowPass;
+  }
+
+  set lowpassFilter(value: number) {
+    this.LowPass = value;
+  }
+
+  get highpassFilter() {
+    return this.HighPass;
+  }
+
+  set highpassFilter(value: number) {
+    this.HighPass = value;
+  }
+
   ngOnInit() {
     this.channels = 4;
     this.canvases = Array(this.channels).fill(0).map(() => new SmoothieChart(this.options));
@@ -76,7 +93,7 @@ export class TimeSeriesComponent implements OnInit, OnDestroy, AfterViewInit {
         }))),
       groupBy(sample => sample.electrode),
       mergeMap(group => {
-        const bandpassFilter = bandpass(samplingFrequency, 0.5, 40);
+        const bandpassFilter = bandpass(samplingFrequency, this.LowPass, this.HighPass);
         const conditionalFilter = value => this.filter ? bandpassFilter(value) : value;
         return group.pipe(
           filter(sample => !isNaN(sample.value)),

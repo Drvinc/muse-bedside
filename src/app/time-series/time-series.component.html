@@ -9,7 +9,7 @@
         <canvas class="time-series-canvas"></canvas>
         <aside class="time-series-amplitude"
             [ngStyle]="{ 'background': colors[i].borderColor }">
-            {{ uVrms[i].toFixed(1) }} uVrms
+            {{ uVrms[i].toFixed(1) }} &micro;Vrms
         </aside>
     </article>
 
@@ -18,7 +18,9 @@
     </div>
 
     <div class="graph-settings">
-      <div>Amplitude Scale : <mat-slider [(ngModel)]="amplitudeScale" min="5" max="200" step="10"></mat-slider> {{amplitudeScale}} uV</div>
+      <div>Amplitude Scale : <mat-slider [(ngModel)]="amplitudeScale" min="10" max="150" step="10"></mat-slider> {{amplitudeScale}}</div>
       <div>Time Scale : <mat-slider [(ngModel)]="timeScale" min="2" max="8" step="1"></mat-slider> {{timeScale}}</div>
+      <div>Low-Pass Filter : <mat-slider [(ngModel)]="lowpassFilter" min="0.5" max="3" step="0.5"></mat-slider> {{lowpassFilter}}</div>
+      <div>High-Pass Filter : <mat-slider [(ngModel)]="highpassFilter" min="30" max="70" step="10"></mat-slider> {{highpassFilter}}</div>
     </div>
 </section>
